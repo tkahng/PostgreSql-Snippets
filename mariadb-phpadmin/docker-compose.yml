@@ -7,7 +7,10 @@ services:
       - MYSQL_ROOT_PASSWORD=password
     #   - MYSQL_DATABASE=radio
     volumes:
-      - ./database:/var/lib/mysql
+      # - ./database:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
 
   phpmyadmin:
     image: phpmyadmin
@@ -17,11 +20,15 @@ services:
       - PMA_HOST=db
     restart: always
     ports:
-      - 8080:80
-    volumes:
-      - /sessions
+      - 3591:80
+      # - 8080:80
+    # volumes:
+    #   - /sessions
     links:
       - db
+
+volumes:
+  mysql_data:
 # services:
 #   db:
 #     image: mariadb:10.3
